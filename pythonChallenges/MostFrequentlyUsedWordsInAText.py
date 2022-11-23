@@ -27,7 +27,11 @@ Avoid creating an array whose memory footprint is roughly as big as the input te
 Avoid sorting the entire array of unique words.
 """
 
-def top_3_words(text):   
-    return  text.replace("#", "").replace("/", "").replace("e.g.", "").replace('.', "").strip().split(" ")
+def top_3_words(text):
+    topContWord = []
+    topWords = []
+    txt = text.lower().replace("#", "").replace("/", "").replace('.', "").replace(":", "").replace(",", "").strip().split(" ")
+    [(topWords.append(word), topContWord.append(txt.count(word))) if len(topWords) < 3 and word not in topWords else (topWords.insert(word, 1)) if word not in topWords and txt.count(word) > topContWord[0] else word for index, word in enumerate(txt)]
+    return topWords, topContWord
 
-print(top_3_words("  //wont won't won't"))
+print(top_3_words("cc DDD ddd DdD: ddd ddd aa aA Aa, bb  cC e e e e e e e"))
