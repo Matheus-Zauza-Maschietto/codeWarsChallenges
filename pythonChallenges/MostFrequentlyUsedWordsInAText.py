@@ -28,10 +28,33 @@ Avoid sorting the entire array of unique words.
 """
 
 def top_3_words(text):
-    topContWord = []
-    topWords = []
-    txt = text.lower().replace("#", "").replace("/", "").replace('.', "").replace(":", "").replace(",", "").strip().split(" ")
-    [(topWords.append(word), topContWord.append(txt.count(word))) if len(topWords) < 3 and word not in topWords else (topWords.insert(word, 1)) if word not in topWords and txt.count(word) > topContWord[0] else word for index, word in enumerate(txt)]
-    return topWords, topContWord
+    wordAndCounts = []
+    wordsAlreadyCounted = []
 
-print(top_3_words("cc DDD ddd DdD: ddd ddd aa aA Aa, bb  cC e e e e e e e"))
+    top3Words = []
+    txt = text.lower().replace("#", " ").replace("/", " ").replace('.', " ").replace(":", " ").replace(",", " ").replace("  ", " ").replace("_", " ").replace(";", " ").replace("?", " ").replace("!", " ").replace("-", " ").replace(" ' ", ' ').replace("'''", ' ').replace("/n", "").strip()
+    print(txt)
+    for word in txt.split(" "):
+        if word not in wordsAlreadyCounted and word != "":
+            wordAndCounts.append([word, txt.count(f" {word}")])
+            wordsAlreadyCounted.append(word)
+
+    print(wordAndCounts)         
+    for topWords in range(3 if len(wordsAlreadyCounted) > 3 else len(wordsAlreadyCounted)):
+        maior = 0
+        for index, wordCount in enumerate(wordAndCounts):
+            if index == 0:
+                maior = index
+            else:
+                if wordCount[1] > wordAndCounts[maior][1]:
+                    maior = index
+                
+        top3Words.append(wordAndCounts[maior][0])
+        wordAndCounts.remove(wordAndCounts[maior])
+    return top3Words
+
+print(top_3_words("  ...  "))
+
+# NOTA MENTAL
+# APRENDER REGEX LOGO
+# 25/11/2022
