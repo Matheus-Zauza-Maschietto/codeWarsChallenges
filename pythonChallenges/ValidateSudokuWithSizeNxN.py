@@ -63,24 +63,31 @@ class Sudoku(object):
         return True
 
     def validate_sudoku_rules(self):
-        for rowIndex, row in enumerate(self.sudokuList):
-            for index, square in enumerate(row):
-                raizQ = len(index)**(1/2)
-                sectorRow = (index//(raizQ))
+        for row in self.sudokuList:
+            for indexSquare, square in enumerate(row):
+                self.validate_row(square, row)
+                self.validate_column(square, [self.sudokuList[index][indexSquare] for index in range(len(row))])
+                print([print(self.sudokuList[index][indexSquare]) for index in range(len(row))])
                 
-                if not (self.validate_row(square, row) and self.validate_column(square, [rowComprehension[sectorRow*raizQ:(sectorRow+1)*raizQ] if rowIndexComprehension//raizQ == rowIndex//raizQ else None for rowIndexComprehension, rowComprehension in enumerate(self.sudokuList)])):
-                    return False
-        return True                                                                                                                                                                                                                                                                                         
+        return True
 
-    def is_valid(self):                                                                                                                                                                                                                             
+    def is_valid(self):
         if self.sudokuList != [] and self.sudokuList != 0:
-            return (self.validate_integer_at_sudoku() and self.validate_sudoku_size() and self.validate_sector())
+            return (self.validate_integer_at_sudoku() and self.validate_sudoku_size())
         return False
 
 goodSudoku1 = Sudoku([
-  [1, 2 ,3],
-  [1, 2 ,3],
-  [1, 2 ,3],
+[7, 8, 4,   1, 5, 9,   3, 2, 6] ,
+[5, 3, 9,   6, 7, 2,   8, 4, 1] ,
+[6, 1, 2,   4, 3, 8,   7, 5, 9] ,
+
+[9, 2, 8,   7, 1, 5,   4, 6, 3] ,
+[3, 5, 7,   8, 4, 6,   1, 9, 2] ,
+[4, 6, 1,   9, 2, 3,   5, 8, 7] ,
+
+[8, 7, 6,   3, 9, 4,   2, 1, 5] ,
+[2, 4, 3,   5, 6, 1,   9, 7, 8] ,
+[1, 9, 5,   2, 8, 7,   6, 3, 4] 
 ])
 
 print(goodSudoku1.is_valid())
@@ -88,24 +95,29 @@ print(goodSudoku1.is_valid())
 
 """
 [
-[1, 2, 3, 4, 5, 6, 7, 8, 9], 
-[2, 3, 1, 5, 6, 4, 8, 9, 7], 
-[3, 1, 2, 6, 4, 5, 9, 7, 8], 
-[4, 5, 6, 7, 8, 9, 1, 2, 3], 
-[5, 6, 4, 8, 9, 7, 2, 3, 1], 
-[6, 4, 5, 9, 7, 8, 3, 1, 2], 
-[7, 8, 9, 1, 2, 3, 4, 5, 6], 
-[8, 9, 7, 2, 3, 1, 5, 6, 4], 
-[9, 7, 8, 3, 1, 2, 6, 4, 5]
+[1, 2, 3,   4, 5, 6,   7, 8, 9], 
+[2, 3, 1,   5, 6, 4,   8, 9, 7], 
+[3, 1, 2,   6, 4, 5,   9, 7, 8], 
+
+[4, 5, 6,   7, 8, 9,   1, 2, 3], 
+[5, 6, 4,   8, 9, 7,   2, 3, 1], 
+[6, 4, 5,   9, 7, 8,   3, 1, 2], 
+
+[7, 8, 9,   1, 2, 3,   4, 5, 6], 
+[8, 9, 7,   2, 3, 1,   5, 6, 4], 
+[9, 7, 8,   3, 1, 2,   6, 4, 5]
 ]
+
 [
-[7, 8, 4, 1, 5, 9, 3, 2, 6] ,
-[5, 3, 9, 6, 7, 2, 8, 4, 1] ,
-[6, 1, 2, 4, 3, 8, 7, 5, 9] ,
-[9, 2, 8, 7, 1, 5, 4, 6, 3] ,
-[3, 5, 7, 8, 4, 6, 1, 9, 2] ,
-[4, 6, 1, 9, 2, 3, 5, 8, 7] ,
-[8, 7, 6, 3, 9, 4, 2, 1, 5] ,
-[2, 4, 3, 5, 6, 1, 9, 7, 8] ,
-[1, 9, 5, 2, 8, 7, 6, 3, 4] 
+[7, 8, 4,   1, 5, 9,   3, 2, 6] ,
+[5, 3, 9,   6, 7, 2,   8, 4, 1] ,
+[6, 1, 2,   4, 3, 8,   7, 5, 9] ,
+
+[9, 2, 8,   7, 1, 5,   4, 6, 3] ,
+[3, 5, 7,   8, 4, 6,   1, 9, 2] ,
+[4, 6, 1,   9, 2, 3,   5, 8, 7] ,
+
+[8, 7, 6,   3, 9, 4,   2, 1, 5] ,
+[2, 4, 3,   5, 6, 1,   9, 7, 8] ,
+[1, 9, 5,   2, 8, 7,   6, 3, 4] 
 ]"""
