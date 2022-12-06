@@ -24,6 +24,7 @@ Columns may only contain integers: 1..N (N included)
 """
 
 class Sudoku(object):
+
     def __init__(self, data):
         self.sudokuList = data
 
@@ -38,56 +39,56 @@ class Sudoku(object):
     def validate_integer_at_sudoku(self):
         for row in self.sudokuList:
             for cell in row:
-                print(cell)
                 if isinstance(cell, str) or isinstance(cell, bool) or cell > len(row) or cell < 1:
                     return False
-            print()
         return True
     
     @staticmethod
-    def validate_row(square, row: list):
-        if row.count(square) > 1:
+    def validate_sudoku(square, list: list):
+        if list.count(square) > 1:
             return False
         return True
-
+    
     @staticmethod
-    def validate_column(square, column: list):
-        if column.count(square) > 1:
-            return False
-        return True
-
-    @staticmethod
-    def validate_sector(square, sector: list):
-        if sector.count(square) > 1:
-            return False
-        return True
+    def getSector(sectorCordX, sectorCordY, list):
+        raizList = len(list)**(1/2)
+        sector = []
+        for indexRow, row in enumerate(list):
+            for indexSquare, square in enumerate(row):
+                if indexRow//raizList == sectorCordX and indexSquare//raizList==sectorCordY:
+                    sector.append(square)
+        return sector
 
     def validate_sudoku_rules(self):
-        for row in self.sudokuList:
+        for indexRow, row in enumerate(self.sudokuList):
             for indexSquare, square in enumerate(row):
-                self.validate_row(square, row)
-                self.validate_column(square, [self.sudokuList[index][indexSquare] for index in range(len(row))])
-                print([print(self.sudokuList[index][indexSquare]) for index in range(len(row))])
-                
+                column = [self.sudokuList[index][indexSquare] for index in range(len(self.sudokuList))]
+
+                sectorY = int(indexSquare//(len(row)**(0.5)))
+                sectorX = int(indexRow//(len(self.sudokuList)**(0.5)))
+                sector = self.getSector(sectorY, sectorX, self.sudokuList)
+
+                if self.validate_sudoku(square, row) == False or self.validate_sudoku(square, column) == False or self.validate_sudoku(square, sector) == False:
+                    return False
         return True
 
     def is_valid(self):
         if self.sudokuList != [] and self.sudokuList != 0:
-            return (self.validate_integer_at_sudoku() and self.validate_sudoku_size())
+            return (self.validate_integer_at_sudoku() and self.validate_sudoku_size() and self.validate_sudoku_rules())
         return False
 
 goodSudoku1 = Sudoku([
-[7, 8, 4,   1, 5, 9,   3, 2, 6] ,
-[5, 3, 9,   6, 7, 2,   8, 4, 1] ,
-[6, 1, 2,   4, 3, 8,   7, 5, 9] ,
+[1, 2, 3,   4, 5, 6,   7, 8, 9],
+[2, 3, 1,   5, 6, 4,   8, 9, 7],
+[3, 1, 2,   6, 4, 5,   9, 7, 8],
 
-[9, 2, 8,   7, 1, 5,   4, 6, 3] ,
-[3, 5, 7,   8, 4, 6,   1, 9, 2] ,
-[4, 6, 1,   9, 2, 3,   5, 8, 7] ,
+[4, 5, 6,   7, 8, 9,   1, 2, 3],
+[5, 6, 4,   8, 9, 7,   2, 3, 1],
+[6, 4, 5,   9, 7, 8,   3, 1, 2],
 
-[8, 7, 6,   3, 9, 4,   2, 1, 5] ,
-[2, 4, 3,   5, 6, 1,   9, 7, 8] ,
-[1, 9, 5,   2, 8, 7,   6, 3, 4] 
+[7, 8, 9,   1, 2, 3,   4, 5, 6],
+[8, 9, 7,   2, 3, 1,   5, 6, 4],
+[9, 7, 8,   3, 1, 2,   6, 4, 5]
 ])
 
 print(goodSudoku1.is_valid())
@@ -121,3 +122,21 @@ print(goodSudoku1.is_valid())
 [2, 4, 3,   5, 6, 1,   9, 7, 8] ,
 [1, 9, 5,   2, 8, 7,   6, 3, 4] 
 ]"""
+
+
+"""teste = [
+[7, 8, 4,   1, 5, 9,   3, 2, 6] ,
+[5, 3, 9,   6, 7, 2,   8, 4, 1] ,
+[6, 1, 2,   4, 3, 8,   7, 5, 9] ,
+
+[9, 2, 8,   7, 1, 5,   4, 6, 3] ,
+[3, 5, 7,   8, 4, 6,   1, 9, 2] ,
+[4, 6, 1,   9, 2, 3,   5, 8, 7] ,
+
+[8, 7, 6,   3, 9, 4,   2, 1, 5] ,
+[2, 4, 3,   5, 6, 1,   9, 7, 8] ,
+[1, 9, 5,   2, 8, 7,   6, 3, 4] 
+]
+
+for indexS, item in enumerate(teste):
+    print([teste[indexI][indexS] for indexI, I in enumerate(teste)])"""
