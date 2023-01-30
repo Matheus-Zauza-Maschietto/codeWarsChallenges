@@ -32,41 +32,59 @@ class User:
 
     def inc_progress(self, task_rank):
         diference = task_rank-self.rank
+
+        # Aplica regra da não existencia de nivel 0 a diferença de niveis
+        if self.rank < 0 and task_rank > 0:
+            diference -= 1
+
+        if self.rank == 1 and task_rank == -1:
+            diference = -1
+
+        # contador de pontuação
         if task_rank >= -8 and task_rank != 0 and task_rank <= 8:
-            if task_rank+1 == self.rank:
+
+            if diference == -1:
                 self._progress += 1
 
-            elif task_rank == self.rank:
+            elif diference == 0:
                 self._progress += 3
 
-            elif task_rank > self.rank:
-                if task_rank > 0 and self.rank < 0:
-                    #                    
-                    self._progress += 10*(-1)**2
+            elif diference > 0:
+                self._progress += 10*(diference)**2
+            
+            else:
+                self._progress += 0
 
-                else:
-                    self._progress += 10*(task_rank-self.rank)**2
         else:
             raise IndexError
 
+
+
         self.rank = -8+(self._progress//100)
-        if self.rank == 0:
-            self.rank = 1
-        elif self.rank > 8:
+        if self._progress >= 800:
+            self.rank += 1
+        
+        if self._progress > 1500:
+            self._progress = 1500
             self.rank = 8
 
     @property
     def progress(self):
-        if self._progress % 100 >= 0:
-            return self._progress % 100
-        return self._progress
+        return self._progress % 100
+        
 
     def __str__(self) -> str:
-        return f"User rank: {self.rank} - progress: {self.progress}"
+        return f"User rank: {self.rank} - progress level: {self.progress} - progress total: {self._progress}"
         
 
 user = User()
+taskLevels = [-4, -5, -7, 1, 3, -7, -1, 3, -3, 5]
+for task in taskLevels:
+    print(user)
+    print(f"Task-level: {task}")
+    user.inc_progress(task)
+    print(user)
+    print()
+#user.inc_progress(-1)
+#user.inc_progress(-2)
 
-user.inc_progress(5)
-print(user)
-print()
