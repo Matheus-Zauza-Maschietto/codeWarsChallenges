@@ -23,9 +23,28 @@ M	1000
 """
 class RomanNumerals:
     def to_roman(val):
-        return ''
+        romanToNumeral = {
+            "M": 1000,
+            "D": 500,
+            "C": 100,
+            "L": 50,
+            "X": 10,
+            "V": 5,
+            "IV": 4,
+            "I": 1
+        }
+        roman = ''
+        while val != 0:
+            for key, value in romanToNumeral.items():
+                IntDiv = val//value
+                if IntDiv > 0:
+                    roman += key*(IntDiv)
+                    val -= value*(IntDiv)
+                    break
+        
+        return roman
 
-    def from_roman( roman_num):
+    def from_roman(roman_num):
         romanToNumeral = {
             "M": 1000,
             "D": 500,
@@ -37,12 +56,16 @@ class RomanNumerals:
             "I": 1
         }
         sum = 0
-        for index in range(len(roman_num)):
-            if romanToNumeral[roman_num[index: index+1].upper()] == "IV":
-                sum += romanToNumeral[roman_num[index: index+1].upper()]
-            
-            sum += romanToNumeral[roman_num[index].upper()]
+        for index, value in enumerate(roman_num):
+            first = value
+            try:
+                second = roman_num[index+1]
+                if romanToNumeral[second] > romanToNumeral[first]:
+                    sum += romanToNumeral[second]-romanToNumeral[first]
+                else:
+                    sum += romanToNumeral[first]
+            except:
+                sum += romanToNumeral[first]
         return sum
 
-
-print(RomanNumerals.from_roman("M"))
+print(RomanNumerals.from_roman('IV'))
