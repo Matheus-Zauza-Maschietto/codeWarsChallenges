@@ -13,19 +13,30 @@ public static class Kata
     {
         return false;
     }
-    if(n % 2 == 0 && n != 2)
+    if(n != 2)
     {
-        return false;
+        if(n % 2 == 0)
+        {
+            return false;
+        }
+        if(n % 3 == 0)
+        {
+            return false;
+        }
     }
-    if(n % 3 == 0 && n != 3)
-    {
-        return false;
-    }
-    for(int cont = 1; cont < n; cont+=2)
+    int cont = 1;
+    bool AddTwo = false;
+    while(cont < n)
     {
         if(n % cont == 0)
         {
             return false;
+        }
+        if(AddTwo){
+            cont += 4;
+        }
+        else{
+            cont += 2;
         }
     }
     return true;
