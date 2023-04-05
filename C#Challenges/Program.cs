@@ -1,5 +1,6 @@
-﻿using System.Text;
-using C_Challenges.Challenges;
-System.Console.WriteLine();
+﻿using System;
+using C_Challenges.Challenges.AddBinary;
+
+System.Console.WriteLine(Kata.AddBinary(100, 10));
 
 

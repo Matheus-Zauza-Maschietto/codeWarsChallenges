@@ -10,9 +10,27 @@ public static class Kata
 {
   public static string AddBinary(int a, int b)
   {
-        var binaryTable = new List<int>();
+        List<int> binaryTable = new List<int>();
+        int contador = 0, sum = a+b;
+        string binary = "";
 
+        while(Math.Pow(2, contador) < (a+b)){
+          binaryTable.Add((int)Math.Pow(2, contador));
+          
+          contador++;
+        }
+        contador--;
+        while(contador >= 0){
+          if(sum-binaryTable[contador] >= 0){
+            sum = sum-binaryTable[contador];
+            binary += "1";
+          }
+          else{
+            binary += "0";
+          }
+          contador--;
+        }
 
-        return "";
+        return binary;
   }
 }
