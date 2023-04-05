@@ -5,20 +5,13 @@
 // [] --> []
 // ["a", "b", "c"] --> ["1: a", "2: b", "3: c"]
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace C_Challenges.Challenges.Testing123;
+namespace C_Challenges.Challenges.LineNumbering;
 using System.Collections.Generic;
 public class LineNumbering 
 {
     public static List<string> Number(List<string> lines) 
     {
-        foreach(var item in lines.Select((item, index) => (item, index))){
-            System.Console.WriteLine($"{item.item}-{item.index}");
-        }
+        //your code goes here
         return lines;
     }
 }
