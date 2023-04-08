@@ -1,6 +1,9 @@
 ﻿using System;
-using C_Challenges.Challenges.AddBinary;
+using C_Challenges.Challenges.TwoSum;
 
-System.Console.WriteLine(Kata.AddBinary(100, 10));
+foreach(var item in Kata.TwoSum(new [] { 1, 2, 3 }, 4))
+{
+    System.Console.WriteLine(item);
+}
 
 

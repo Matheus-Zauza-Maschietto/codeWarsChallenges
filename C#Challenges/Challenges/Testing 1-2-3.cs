@@ -7,10 +7,17 @@
 
 namespace C_Challenges.Challenges.LineNumbering;
 using System.Collections.Generic;
+using System;
 public class LineNumbering 
 {
     public static List<string> Number(List<string> lines) 
     {
+        // for(int index = 0; index < lines.Count; index++)
+        // {
+        //     lines[index] = $"{(int)char.Parse(lines[index])-96}: "+lines[index];
+        // }
+        for(int index = 0; index < lines.Count; index++)
+            lines[index] = $"{index+1}: "+lines[index];
         //your code goes here
         return lines;
     }
