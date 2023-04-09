@@ -1,9 +1,8 @@
 ﻿using System;
-using C_Challenges.Challenges.TwoSum;
+using C_Challenges.Challenges.DirReduction;
 
-foreach(var item in Kata.TwoSum(new [] { 1, 2, 3 }, 4))
+foreach(var item in DirReduction.dirReduc(new string[] {"NORTH", "SOUTH", "EAST", "WEST", "NORTH", "SOUTH"}))
 {
     System.Console.WriteLine(item);
 }
-
 
